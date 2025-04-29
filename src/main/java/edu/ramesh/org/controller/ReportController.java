@@ -28,4 +28,18 @@ public class ReportController {
                                 .toString())
                 .body(resource);
     }
+
+    @GetMapping("/last-10-days")
+    public ResponseEntity<Resource> downloadLast10DaysEmployeeReport() {
+        Resource resource = reportService.generateLast10DaysEmployeeReport();
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        ContentDisposition.attachment()
+                                .filename("last_10_days_employees.xlsx")
+                                .build()
+                                .toString())
+                .body(resource);
+    }
 }

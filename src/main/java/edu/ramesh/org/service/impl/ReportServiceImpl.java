@@ -37,7 +37,11 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Resource generateLast10DaysEmployeeReport() {
-        return null;
+        LocalDateTime tenDaysAgo = LocalDateTime.now().minus(10, ChronoUnit.DAYS);
+
+        List<EmployeeEntity> employees = employeeRepository.findByCreatedAtAfter(tenDaysAgo);
+
+        return generateExcelReport(employees, "Last_10_Days_Employees");
     }
 
     private Resource generateExcelReport(List<EmployeeEntity> employees, String reportName) {
