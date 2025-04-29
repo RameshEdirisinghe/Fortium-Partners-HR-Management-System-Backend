@@ -14,12 +14,8 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity,Long> {
     boolean existsByEmail(String email);
 
-    @Query("SELECT e FROM EmployeeEntity e WHERE e.createdAt >= :startDate")
-    List<EmployeeEntity> findEmployeesCreatedAfter(@Param("startDate") LocalDateTime startDate);
-
-
     @Query("SELECT e FROM EmployeeEntity e WHERE e.createdAt BETWEEN :startDate AND :endDate")
-    List<EmployeeEntity> findEmployeesCreatedBetween(
-            @Param("startDate") LocalDateTime startDate,
-            @Param("endDate") LocalDateTime endDate);
+    List<EmployeeEntity> findEmployeesCreatedBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+
+    List<EmployeeEntity> findByCreatedAtAfter(LocalDateTime date);
 }
