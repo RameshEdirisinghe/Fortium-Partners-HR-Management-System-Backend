@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +31,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployeeById(Long id) {
-        return null;
+        return mapper.map(
+                employeeRepository.findById(id)
+                        .orElseThrow(() -> new NoSuchElementException("Employee not found")),
+                Employee.class
+        );
     }
 
     @Override
@@ -42,7 +48,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee updateEmployee(Long id, Employee employeeDetails) {
-        return null;
+        EmployeeEntity existingEntity = employeeRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Employee not found with id: " + id));
+
+        if (!existingEntity.getEmail().equals(employeeDetails.getEmail())){
+            if (employeeRepository.existsByEmail(employeeDetails.getEmail())) {
+                throw new IllegalArgumentException("Email already exists: " + employeeDetails.getEmail());
+            }
+        }
+
+        mapper.map(employeeDetails, existingEntity);
+
+        existingEntity.setId(id);
+
+        EmployeeEntity updatedEntity = employeeRepository.save(existingEntity);
+        return mapper.map(updatedEntity, Employee.class);
     }
 
     @Override
