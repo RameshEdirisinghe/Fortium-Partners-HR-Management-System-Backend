@@ -3,3 +3,13 @@ Spring:
     url: jdbc:mysql://localhost:3306/HR_db?createDatabaseIfNotExist=true
     username: root
     password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  output:
+    ansi:
+      enabled: ALWAYS
