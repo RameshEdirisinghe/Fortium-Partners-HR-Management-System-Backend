@@ -1,0 +1,5 @@
+Spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/HR_db?createDatabaseIfNotExist=true
+    user: root
+    password: 1234
