@@ -1,6 +1,9 @@
 package edu.ramesh.org.service;
 
 
+import org.springframework.core.io.Resource;
+
 public interface ReportService {
-    String exportReport(String reportFormat, String period);
+    Resource generateLastMonthReport();
+    Resource generateLast10DaysEmployeeReport();
 }

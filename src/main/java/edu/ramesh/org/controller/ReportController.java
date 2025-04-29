@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ReportController {
 
-    private final ReportService reportService;
-    @GetMapping("/report")
-    public String generateReport(
-            @RequestParam(defaultValue = "pdf") String format,
-            @RequestParam(defaultValue = "all") String period) {
-
-            return reportService.exportReport(format, period);
-
-    }
+//    private final ReportService reportService;
+//    @GetMapping("/report")
+//    public String generateReport(
+//            @RequestParam(defaultValue = "pdf") String format,
+//            @RequestParam(defaultValue = "all") String period) {
+//
+//            return reportService.exportReport(format, period);
+//
+//    }
 }
